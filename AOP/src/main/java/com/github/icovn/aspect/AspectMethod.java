@@ -19,7 +19,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class AspectMethod {
-private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final String LOGIN_PASS = "admin";
 	
 	@Before("execution(* com.github.icovn.aop..*(..))")
 	public void restrict(JoinPoint joinPoint) throws LoginException {
@@ -28,7 +29,7 @@ private Logger logger = LoggerFactory.getLogger(this.getClass());
 		String pass;
 		try {
 			pass = bufferedReader.readLine();
-			if (!"admin".equals(pass)) {
+			if (!LOGIN_PASS.equals(pass)) {
 				 throw new LoginException();
 			}
 		} catch (IOException e) {
